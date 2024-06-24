@@ -1,0 +1,23 @@
+name: 'Check FIXME: remains'
+description: 'Check whether fixme annotations remains in your repo.'
+
+inputs:
+  path-to-check:
+    description: 'path(ex: ./frontend/src)'
+    default: './'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: checkout
+      uses: actions/checkout@v4
+
+    - name: check fixme remains
+      shell: bash
+      run: |
+        if grep -r "FIXME" ${{ inputs.path-to-check }}; then
+              echo "Error: FIXME annotations found."
+              exit 1
+        else
+            echo "Good. There are no fixme annotations."
+        fi
