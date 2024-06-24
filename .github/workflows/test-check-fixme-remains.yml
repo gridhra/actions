@@ -10,10 +10,7 @@ jobs:
   test-check-fixme-remains:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout repository
-        uses: actions/checkout@v4
-
-      - name: run check fixme remains (case1, fixme remains)
+      - name: run check fixme remains (case1, fixme remains, expected to exit 1)
         id: check-fixme-remains
         uses: yiegle/actions/check-draft-code-remains@main
         with:
@@ -30,7 +27,7 @@ jobs:
             echo "Succecced: There is a file containing FIXME:, and the action returns error."
           fi
 
-      - name: run check fixme remains (case2, no fixme remains)
+      - name: run check fixme remains (case2, no fixme remains, expected to exit 0)
         id: check-no-fixme-remains
         uses: yiegle/actions/check-draft-code-remains@main
         with:
