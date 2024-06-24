@@ -22,5 +22,5 @@ runs:
               echo "Error: ${{ inputs.draft-code }} found."
               exit 1
         else
-            echo "Good. There are no ${{ ipnuts.draft-code }}"
+            echo "Good. There are no ${{ inputs.draft-code }}"
         fi
