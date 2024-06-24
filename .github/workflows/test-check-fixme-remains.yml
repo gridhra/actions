@@ -19,7 +19,7 @@ jobs:
 
       - name: run check fixme remains (case1, fixme remains)
         id: check-fixme-remains
-        uses: ./check-draft-code-remains
+        uses: yiegle/actions/check-draft-code-remains@main
         with:
           draft-code: 'FIXME:'
           path-to-check: './check-draft-code-remains/test/fixme-remains'
@@ -36,7 +36,7 @@ jobs:
 
       - name: run check fixme remains (case2, no fixme remains)
         id: check-no-fixme-remains
-        uses: ./check-draft-code-remains
+        uses: yiegle/actions/check-draft-code-remains@main
         with:
           draft-code: 'FIXME:'
           path-to-check: './check-fixme-remains/test/no-fixme-remains'
