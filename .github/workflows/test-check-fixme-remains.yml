@@ -3,8 +3,12 @@ name: test-check-fixme-remains
 on:
   push:
     branches: [ main ]
+    paths:
+      - './check-draft-code-remains/**'
   pull_request:
     branches: [ main ]
+    paths:
+      - './check-draft-code-remains/**'
 
 jobs:
   test-check-fixme-remains:
