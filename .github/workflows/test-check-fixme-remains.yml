@@ -1,0 +1,33 @@
+name: test-check-fixme-remains
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test-check-fixme-remains:
+    runs-on: ubuntu-latest
+    steps:
+      - name: run check fixme remains (case1, fixme remains)
+        id: check-fixme-remains
+        uses: ./check-fixme-remains
+        with:
+          path-to-check: './check-fixme-remains/test/fixme-remains'
+        continue-on-error: true
+
+      - name: tests check fixme remains by comparing the result
+        run: |
+          if [ ${{ steps.check-fixme-remains.outcome }} == "success" ]; then
+            echo "Failed: returns success, but exptected to return error. because there is a file containing FIXME:."
+            exit 1
+          else
+            echo "Succecced: There is a file containing FIXME:, and the action returns error."
+          fi
+
+      - name: run check fixme remains (case2, no fixme remains)
+        id: check-fixme-remains
+        uses: ./check-fixme-remains
+        with:
+          path-to-check: './check-fixme-remains/test/no-fixme-remains'
