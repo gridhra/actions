@@ -11,17 +11,17 @@ ex1: check ``console.log()`` remains in your frontend source codes.
 ```yaml
 - uses: actions/checkout@v4
 - uses: yiegle/actions/check-draft-code-remains@main
-    with:
-        draft-code: 'console.log'
-        path-to-check: './frontend/src'
+  with:
+    draft-code: 'console.log'
+    path-to-check: './frontend/src'
 ```
 
 ex2: check ``FIXME:`` remains in your repo.
 ```yaml
 - uses: actions/checkout@v4
 - uses: yiegle/actions/check-draft-code-remains@main
-    with:
-        draft-code: 'FIXME:'
+  with:
+    draft-code: 'FIXME:'
 ```
 
 ## Usecase
@@ -37,11 +37,11 @@ on:
       - 'main'
 
 jobs:
-    check-fixme:
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v4
-            - uses: yiegle/actions/check-draft-code-remains@main
-                with:
-                    draft-code: 'FIXME:'
+  check-fixme:
+    runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v4
+        - uses: yiegle/actions/check-draft-code-remains@main
+          with:
+            draft-code: 'FIXME:'
 ```
