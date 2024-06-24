@@ -10,6 +10,9 @@ jobs:
   test-check-fixme-remains:
     runs-on: ubuntu-latest
     steps:
+      - name: checkout repository
+        uses: actions/checkout@v4
+
       - name: run check fixme remains (case1, fixme remains)
         id: check-fixme-remains
         uses: ./check-fixme-remains
