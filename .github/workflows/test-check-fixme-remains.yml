@@ -35,4 +35,4 @@ jobs:
         uses: yiegle/actions/check-draft-code-remains@main
         with:
           draft-code: 'FIXME:'
-          path-to-check: './check-fixme-remains/test/no-fixme-remains'
+          path-to-check: './check-draft-code-remains/test/no-fixme-remains'
