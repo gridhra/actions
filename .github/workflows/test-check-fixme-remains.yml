@@ -27,7 +27,7 @@ jobs:
           fi
 
       - name: run check fixme remains (case2, no fixme remains)
-        id: check-fixme-remains
+        id: check-no-fixme-remains
         uses: ./check-fixme-remains
         with:
           path-to-check: './check-fixme-remains/test/no-fixme-remains'
