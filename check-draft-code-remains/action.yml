@@ -1,0 +1,26 @@
+name: 'Check draft code remains'
+description: 'Check whether draft code remains in your repo.'
+
+inputs:
+  draft-code:
+    description: 'draft code(ex: FIXME:)'
+    required: true
+  path-to-check:
+    description: 'path(ex: ./frontend/src)'
+    default: './'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: checkout
+      uses: actions/checkout@v4
+
+    - name: check draft code remains
+      shell: bash
+      run: |
+        if grep -r "${{ inputs.draft-code }}" ${{ inputs.path-to-check }}; then
+              echo "Error: ${{ inputs.draft-code }} found."
+              exit 1
+        else
+            echo "Good. There are no ${{ ipnuts.draft-code }}"
+        fi

@@ -15,9 +15,10 @@ jobs:
 
       - name: run check fixme remains (case1, fixme remains)
         id: check-fixme-remains
-        uses: ./check-fixme-remains
+        uses: ./check-draft-code-remains
         with:
-          path-to-check: './check-fixme-remains/test/fixme-remains'
+          draft-code: 'FIXME:'
+          path-to-check: './check-draft-code-remains/test/fixme-remains'
         continue-on-error: true
 
       - name: tests check fixme remains by comparing the result
@@ -31,6 +32,7 @@ jobs:
 
       - name: run check fixme remains (case2, no fixme remains)
         id: check-no-fixme-remains
-        uses: ./check-fixme-remains
+        uses: ./check-draft-code-remains
         with:
+          draft-code: 'FIXME:'
           path-to-check: './check-fixme-remains/test/no-fixme-remains'
