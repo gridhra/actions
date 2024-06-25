@@ -12,8 +12,11 @@ Update ECS Service Desired Count: The action updates the ECS service with the ne
 ## Inputs
 
 action: (Required) The action to perform on the ECS service. Valid values are start, stop, and toggle. Default is toggle.
+
 cluster: (Required) The ARN of the ECS cluster.
+
 service: (Required) The ARN of the ECS service.
+
 region: (Required) The AWS region where your ECS cluster is located.
 
 
