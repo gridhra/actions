@@ -1,0 +1,18 @@
+name: bulk-checkout-submodules
+description: 'Bulk Checkout Submodules. You need to use actions/checkout before this action. This only works for public repositories.'
+
+inputs:
+  submodule-paths:
+    description: 'comma separated list of submodule paths(ex: submodules/module1,submodules/module2)'
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Checkout submodules
+      shell: bash
+      run: |
+        IFS=',' read -r -a submodules <<< "${{ inputs.submodule-paths }}"
+        for submodule in "${submodules[@]}"; do
+          git submodule update --init --recursive "$submodule"
+        done
