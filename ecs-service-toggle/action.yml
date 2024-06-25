@@ -1,0 +1,48 @@
+name: 'ecs service toggle'
+description: 'Start or stop ecs service based on user input. Terminate without waiting for service stability.'
+
+inputs:
+  action:
+    description: 'action to perform (start, stop, toggle)'
+    required: true
+    default: 'toggle'
+  cluster:
+    description: 'ecs cluster arn'
+    required: true
+  service:
+    description: 'ecs service arn'
+    required: true
+  region:
+    description: 'aws region your ecs cluster is in'
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Determine new desired count
+      shell: bash
+      id: determine-count
+      run: |
+        if [ "${{ inputs.action }}" == "start" ]; then
+          NEW_DESIRED_COUNT=1
+        elif [ "${{ inputs.action }}" == "stop" ]; then
+          NEW_DESIRED_COUNT=0
+        else
+          CURRENT_DESIRED_COUNT=$(aws ecs describe-services --cluster ${{ inputs.cluster }} --services ${{ inputs.service }} --query 'services[0].desiredCount' --output text)
+          echo "current desired count: $CURRENT_DESIRED_COUNT"
+          if [ $CURRENT_DESIRED_COUNT -eq 0 ]; then
+            NEW_DESIRED_COUNT=1
+          else
+            NEW_DESIRED_COUNT=0
+          fi
+        fi
+        echo "New desired count: $NEW_DESIRED_COUNT"
+        echo "::set-output name=new_desired_count::$NEW_DESIRED_COUNT"
+
+    - name: update ecs service desired count
+      shell: bash
+      id: update-service
+      run: |
+        aws ecs update-service --cluster ${{ inputs.cluster }} --service ${{ inputs.service }} --desired-count ${{ steps.determine-count.outputs.new_desired_count }}
+        echo "ECS service updated to desired count: ${{ steps.determine-count.outputs.new_desired_count }}"
+        echo "::set-output name=result::ECS service updated to desired count: ${{ steps.determine-count.outputs.new_desired_count }}"
